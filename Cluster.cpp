@@ -106,7 +106,12 @@ namespace Clustering {
 //    return <#initializer#>;
 //}
 //
-//bool operator==(const Cluster &lhs, const Cluster &rhs){
+bool operator==(const Cluster &lhs, const Cluster &rhs){
+
+        if (lhs == rhs)
+            return true;
+        return false;
+    }
 //
 //}
     bool operator!=(const Cluster &lhs, const Cluster &rhs){
@@ -150,32 +155,40 @@ namespace Clustering {
 //    return Cluster();
 //}*/
 
-//    void Cluster::m_del() {
-//
-//        if (__size != 0) {
-//            LNodePtr c = __points, n = __points->next;
-//            delete c->point;
-//            delete c;
-//        }
-//        __points = nullptr;
-//        __size = 0;
-//
-//    }
-//
-//    void Cluster::m_cpy(LNodePtr pts) {
-//
-//        LNodePtr reached = pts;
-//        LNodePtr curr = new LNode(reached->point, nullptr);
-//        __points = curr;
-//        LNodePtr prev = curr;
-//        reached = reached->next;
-//
-//        for (; reached != nullptr; reached = reached->next) {
-//            curr = new LNode(reached->point, nullptr);
-//            prev->next = curr;
-//            prev = curr;
-//        }
+    void Cluster::__del() {
 
-    //}
+        if (__size != 0) {
+            LNodePtr c = __points, n = __points->next;
+            //delete c->point;
+            delete c;
+        }
+        __points = nullptr;
+        __size = 0;
+
+    }
+
+    void Cluster::__cpy(LNodePtr pts) {
+
+        LNodePtr reached = pts;
+        LNodePtr curr = new LNode(reached->point, nullptr);
+        __points = curr;
+        LNodePtr prev = curr;
+        reached = reached->next;
+
+        for (; reached != nullptr; reached = reached->next) {
+            curr = new LNode(reached->point, nullptr);
+            prev->next = curr;
+            prev = curr;
+        }
+
+    }
+
+    int Cluster::getSize() const {
+        return __size;
+    }
+
+//    const Point &Cluster::operator[](unsigned int index) const {
+//        return __points[index];
+//    }
 }
 

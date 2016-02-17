@@ -11,7 +11,7 @@ namespace Clustering {
 
         Point point;
         LNodePtr next;
-        //LNode(const Point &p, LNodePtr n) : point(&p), next(n) {}
+        LNode(const Point &p, LNodePtr n) : point(p), next(n) {}
 
     };
 
@@ -26,7 +26,7 @@ namespace Clustering {
 
 
     public:
-        Cluster();
+        Cluster() : __size(0), __points(nullptr) {}
 
         // The big three: cpy ctor, overloaded operator=, dtor
         Cluster(const Cluster &);
@@ -37,14 +37,14 @@ namespace Clustering {
         int getSize() const; // TODO add to the requirements
 
         // Set functions: They allow calling c1.add(c2.remove(p));
-        void add(const Point &); // TODO add asc order to the requirements
+        //void add(const Point &); // TODO add asc order to the requirements
         const Point &remove(const Point &);
         bool contains(const Point &);
 
         // Overloaded operators
 
         // Members: Subscript
-        const Point &operator[](unsigned int index) const; // notice: const
+        //const Point &operator[](unsigned int index) const; // notice: const
 
         // Members: Compound assignment (Point argument)
         Cluster &operator+=(const Point &);
@@ -59,7 +59,7 @@ namespace Clustering {
         friend std::istream &operator>>(std::istream &, Cluster &);
 
         // Friends: Comparison
-        friend bool operator==(const Cluster &, const Cluster &);
+        //friend bool operator==(const Cluster &, const Cluster &);
         friend bool operator!=(const Cluster &, const Cluster &);
 
         // Friends: Arithmetic (Cluster and Point)

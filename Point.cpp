@@ -160,9 +160,9 @@ namespace Clustering {
 
         for (int i = 0; i < point.__dim; i++) {
             if (point.__values[i] == point1.__values[i])
-                return false;
+                return true;
         }
-        return true;
+        return false;
     }
 
     bool operator<(const Point &point, const Point &point1) {
@@ -223,6 +223,17 @@ namespace Clustering {
 //
 //    return istream;
 //}
+    double &Point::operator[](int index) {
+        return __values[index];
+    }
+
+    int Point::getId() const {
+        return __id;
+    }
+
+    int Point::getDims() const {
+        return __dim;
+    }
 }
 
 
