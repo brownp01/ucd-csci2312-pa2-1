@@ -735,41 +735,41 @@ void test_point_distance(ErrorContext &ec, unsigned int numRuns) {
 }
 
 // operator>>, operator<< (incl. exceptions)
-//void test_point_IO(ErrorContext &ec, unsigned int numRuns) {
-//    bool pass;
-//
-//    // Run at least once!!
-//    assert(numRuns > 0);
-//
-//    ec.DESC("--- Test - Point - Stream IO ---");
-//
-//    for (int run = 0; run < numRuns; run++) {
-//
-//        ec.DESC("stream between two points");
-//
-//        {
-//            Point p1(50);
-//
-//            for (int i = 0; i < 50; i++)
-//                p1[i] = 6.12 * i * i + 5.17 * i + 4.19;
-//
-//            Point p2(50);
-//            std::stringstream iostr;
-//            iostr << std::setprecision(20) << p1; // Avoid truncation
-//            iostr >> p2;
-//
-//            pass = true;
-//            for (int i = 0; i < 50; i++)
-//                pass = pass && (p2[i] == p1[i]);
-//            if (!pass) {
-//                std::cout << p1 << std::endl;
-//                std::cout << p2 << std::endl;
-//            }
-//            ec.result(pass);
-//
-//        }
-//    }
-//}
+void test_point_IO(ErrorContext &ec, unsigned int numRuns) {
+    bool pass;
+
+    // Run at least once!!
+    assert(numRuns > 0);
+
+    ec.DESC("--- Test - Point - Stream IO ---");
+
+    for (int run = 0; run < numRuns; run++) {
+
+        ec.DESC("stream between two points");
+
+        {
+            Point p1(50);
+
+            for (int i = 0; i < 50; i++)
+                p1[i] = 6.12 * i * i + 5.17 * i + 4.19;
+
+            Point p2(50);
+            std::stringstream iostr;
+            iostr << std::setprecision(20) << p1; // Avoid truncation
+            iostr >> p2;
+
+            pass = true;
+            for (int i = 0; i < 50; i++)
+                pass = pass && (p2[i] == p1[i]);
+            if (!pass) {
+                std::cout << p1 << std::endl;
+                std::cout << p2 << std::endl;
+            }
+            ec.result(pass);
+
+        }
+    }
+}
 
 
 // - - - - - - - - - - C L U S T E R - - - - - - - - - -

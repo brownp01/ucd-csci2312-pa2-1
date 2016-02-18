@@ -8,8 +8,11 @@
 namespace Clustering {
 
 
+    unsigned int Point::__idGen = 0;
+
     Point::Point(int initDim) {
 
+        __id = ++__idGen;
         __dim = initDim;
         __values = new double[__dim];
 
@@ -209,20 +212,21 @@ namespace Clustering {
         return out;
     }
 
-//std::istream &operator>>(std::istream &istream, Point &point) {
-//
-//    std::string value;
-//
-//    int i = 1;
-//    while (getline(istream, value, Point::POINT_VALUE_DELIM)){
-//        double d = stod(value);
-//        std::cerr << "Value: " << d << std::endl;
-//        point.setValue(i++, d);
-//    }
-//    std::cerr << "Point: " << point << std::endl;
-//
-//    return istream;
-//}
+std::istream &operator>>(std::istream &istream, Point &point) {
+
+    std::string value;
+
+    int i = 1;
+    while (getline(istream, value)){
+        double d = stod(value);
+        std::cerr << "Value: " << d << std::endl;
+        point.setValue(i++, d);
+    }
+    std::cerr << "Point: " << point << std::endl;
+
+    return istream;
+}
+
     double &Point::operator[](int index) {
         return __values[index];
     }
