@@ -4,6 +4,8 @@
 
 #include "Point.h"
 #include <cmath>
+#include <sstream>
+#include <fstream>
 
 namespace Clustering {
 
@@ -30,6 +32,7 @@ namespace Clustering {
 
     Point::Point(const Point &point) {
 
+        __id = ++__idGen;
         __dim = point.__dim;
         __values = new double[__dim];
 
@@ -45,6 +48,7 @@ namespace Clustering {
 
         else {
             delete[] __values;
+            __id = ++__idGen;
             __dim = point.__dim;
             __values = new double[__dim];
 
@@ -206,23 +210,38 @@ namespace Clustering {
 
     std::ostream &operator<<(std::ostream &out, const Point &point) {
 
-        for (int i = 0; i < point.__dim; i++)
+        int i = 0;
+        for ( ; i < point.__dim - 1; i++)
             out << point.__values[i] << ", ";
+        out << point.__values[i];
 
         return out;
     }
 
 std::istream &operator>>(std::istream &istream, Point &point) {
 
+    //std::string line;
+
+    int i = 0;
     std::string value;
 
-    int i = 1;
-    while (getline(istream, value)){
-        double d = stod(value);
-        std::cerr << "Value: " << d << std::endl;
-        point.setValue(i++, d);
-    }
-    std::cerr << "Point: " << point << std::endl;
+//    while (getline(istream, line)) {
+//        std::cout << "Line: " << line << std::endl;
+//
+//        std::stringstream lineStream(line);
+//        std::string value;
+//        double d;
+//        point.__dim;
+
+        while (getline(istream, value, ',')) {
+           double d;
+            d = stod(value);
+            std::cout << "Value: " << d << std::endl;
+            point.setValue(i++, d);
+        }
+
+        std::cout << "Point: " << point << std::endl;
+    //}
 
     return istream;
 }
