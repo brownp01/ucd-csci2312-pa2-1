@@ -5,12 +5,13 @@
 #include "Point.h"
 #include <cmath>
 #include <sstream>
-#include <fstream>
+
 
 namespace Clustering {
 
 
     unsigned int Point::__idGen = 0;
+    const char Point::POINT_VALUE_DELIM = ',';
 
     Point::Point(int initDim) {
 
@@ -220,18 +221,9 @@ namespace Clustering {
 
 std::istream &operator>>(std::istream &istream, Point &point) {
 
-    //std::string line;
+        int i = 0;
+        std::string value;
 
-    int i = 0;
-    std::string value;
-
-//    while (getline(istream, line)) {
-//        std::cout << "Line: " << line << std::endl;
-//
-//        std::stringstream lineStream(line);
-//        std::string value;
-//        double d;
-//        point.__dim;
 
         while (getline(istream, value, ',')) {
            double d;
@@ -241,7 +233,6 @@ std::istream &operator>>(std::istream &istream, Point &point) {
         }
 
         std::cout << "Point: " << point << std::endl;
-    //}
 
     return istream;
 }

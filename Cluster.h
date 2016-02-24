@@ -5,7 +5,7 @@
 
 namespace Clustering {
 
-    typedef struct LNode *LNodePtr;
+    typedef struct LNode* LNodePtr;
 
     struct LNode {
 
@@ -37,7 +37,7 @@ namespace Clustering {
         int getSize() const; // TODO add to the requirements
 
         // Set functions: They allow calling c1.add(c2.remove(p));
-        //void add(const Point &); // TODO add asc order to the requirements
+        void add(const Point &); // TODO add asc order to the requirements
         const Point &remove(const Point &);
         bool contains(const Point &);
 
@@ -59,7 +59,7 @@ namespace Clustering {
         friend std::istream &operator>>(std::istream &, Cluster &);
 
         // Friends: Comparison
-        //friend bool operator==(const Cluster &, const Cluster &);
+        friend bool operator==(const Cluster &, const Cluster &);
         friend bool operator!=(const Cluster &, const Cluster &);
 
         // Friends: Arithmetic (Cluster and Point)

@@ -5,6 +5,7 @@
 #include "Cluster.h"
 #include "Point.h"
 #include <cassert>
+#include <sstream>
 
 using Clustering::Point;
 
@@ -32,43 +33,42 @@ namespace Clustering {
 
     }
 
-//    void Cluster::add(const Point &ptr) {
-//
-//        LNodePtr a = new LNode(ptr, nullptr);
-//
-//        if (__points == nullptr) {
-//            __points = a;
-//        }
-//        else if (*(__points->point) > *ptr) {
-//            a->next = __points;
-//            __points = a;
-//        }
-//        else {
-//            LNodePtr c = __points, n = __points->next;
-//            while (true) {
-//                if (n == nullptr || *(n->point) > *ptr) {
-//                    c->next = a;
-//                    a->next = n;
-//                    break;
-//                }
-//                else {
-//                    c = n;
-//                    n = n->next;
-//                }
-//            }
-//        }
-//
-//        __size++;
-//    }
+    void Cluster::add(const Point &point) {
 
-    const Point &Cluster::remove(const Point &ptr) {
+        LNodePtr a = new LNode(point, nullptr);
+
+        if (__points == nullptr) {
+            __points = a;
+        }
+        else if (__points->point > point) {
+            a->next = __points;
+            __points = a;
+        }
+        else {
+            LNodePtr curr = __points, nxt = __points->next;
+            while (true) {
+                if (nxt == nullptr || nxt->point > point) {
+                    curr->next = a;
+                    a->next = nxt;
+                    break;
+                }
+                else {
+                    curr = nxt;
+                    nxt = nxt->next;
+                }
+            }
+        }
+
+        __size++;
+    }
+
+    const Point &Cluster::remove(const Point &point) {
 
         LNodePtr prev = nullptr, del = nullptr;
 
-        if (__points->point == ptr) {
+        if (__points->point == point) {
             del = __points;
             __points = __points->next;
-            //delete del->point;
             delete del;
 
             __size--;
@@ -79,9 +79,8 @@ namespace Clustering {
 
             while (del != nullptr) {
 
-                if (del->point == ptr) {
+                if (del->point == point) {
                     prev->next = del->next;
-                    //delete del->point;
                     delete del;
 
                     __size--;
@@ -93,19 +92,42 @@ namespace Clustering {
                 del = del->next;
             }
 
-            return ptr;
+            return point;
         }
 
     }
 
-//std::ostream &operator<<(std::ostream &ostream, const Cluster &cluster) {
-//    return <#initializer#>;
-//}
+//    std::ostream &operator<<(std::ostream &out, const Cluster &cluster) {
 //
-//std::istream &operator>>(std::istream &istream, Cluster &cluster) {
-//    return <#initializer#>;
-//}
+//        int i = 0;
+//        for ( ; i < cluster.__points; i++)
+//            out << cluster.__values[i] << ", ";
+//        out << cluster.__values[i];
 //
+//        return out;
+//
+//    }
+
+    std::istream &operator>>(std::istream &istream, Cluster &cluster) {
+
+        std::string line;
+        while (getline(istream,line)) {
+            int d = (int) std::count(line.begin(),
+                                     line.end(),
+                                     Point::POINT_VALUE_DELIM);
+            Point p(d + 1);
+            std::stringstream lineStream(line);
+
+            // call to Point::operator>>
+            lineStream >> p;
+
+            cluster.add(p);
+        }
+
+        return istream;
+    }
+
+
 bool operator==(const Cluster &lhs, const Cluster &rhs){
 
         if (lhs == rhs)
