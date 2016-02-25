@@ -42,6 +42,7 @@ namespace Clustering {
     Cluster::~Cluster() {
 
         __del();
+        assert (__size == 0);
 
     }
 
@@ -192,7 +193,7 @@ Cluster &Cluster::operator+=(const Point &rhs) {
 //
 Cluster &Cluster::operator-=(const Point &rhs) {
 
-        remove(rhs);
+        remove(Point(rhs));
 
         return *this;
 }
@@ -254,15 +255,15 @@ Cluster &Cluster::operator-=(const Point &rhs) {
         return __size;
     }
 
-//    const Point &Cluster::operator[](unsigned int index) const {
-//
-//        LNodePtr curr = __points;
-//
-//        for (int i = 0; i < index; i++)
-//            curr = curr->next;
-//
-//        return curr->point;
-//    }
+    const Point &Cluster::operator[](unsigned int index) const {
+
+        LNodePtr curr = __points;
+
+        for (int i = 0; i < index; i++)
+            curr = curr->next;
+
+        return curr->point;
+    }
 
 }
 

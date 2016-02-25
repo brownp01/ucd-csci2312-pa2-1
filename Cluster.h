@@ -44,7 +44,7 @@ namespace Clustering {
         // Overloaded operators
 
         // Members: Subscript
-        //const Point &operator[](unsigned int index) const; // notice: const
+        const Point &operator[](unsigned int index) const; // notice: const
 
         // Members: Compound assignment (Point argument)
         Cluster &operator+=(const Point &);
