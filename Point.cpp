@@ -166,11 +166,7 @@ namespace Clustering {
 
     bool operator!=(const Point &point, const Point &point1) {
 
-        for (int i = 0; i < point.__dim; i++) {
-            if (point.__values[i] == point1.__values[i])
-                return true;
-        }
-        return false;
+       return ! (point == point1);
     }
 
     bool operator<(const Point &point, const Point &point1) {

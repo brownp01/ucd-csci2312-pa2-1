@@ -803,16 +803,16 @@ void test_cluster_smoketest(ErrorContext &ec) {
     ec.result(pass);
 
 
-//    ec.DESC("copy constructor");
-//    pass = true;
-//    for (int i = 0; i < 10; i ++) {
-//
-//        Cluster c1, c2(c1);
-//
-//        pass = (c1 == c2);
-//        if (!pass) break;
-//    }
-//    ec.result(pass);
+    ec.DESC("copy constructor");
+    pass = true;
+    for (int i = 0; i < 10; i ++) {
+
+        Cluster c1, c2(c1);
+
+        pass = (c1 == c2);
+        if (!pass) break;
+    }
+    ec.result(pass);
 }
 
 // add, remove
@@ -946,118 +946,118 @@ void test_cluster_smoketest(ErrorContext &ec) {
 //}
 //
 // Copy constructor
-//void test_cluster_copying(ErrorContext &ec, unsigned int numRuns) {
-//    bool pass;
-//
-//    // Run at least once!!
-//    assert(numRuns > 0);
-//
-//    ec.DESC("--- Test - Cluster - Copy ---");
-//
-//    for (int run = 0; run < numRuns; run++) {
-//
-//        ec.DESC("simple copy");
-//
-//        {
-//            Point   p1(10),
-//                    p2(10),
-//                    p3(10);
-//            Cluster c1;
-//            c1.add(p1); c1.add(p2); c1.add(p3);
-//            Cluster c2(c1);
-//
-//            pass = (c1 == c2);
-//
-//            ec.result(pass);
-//        }
-//
-//        ec.DESC("chained copy");
-//
-//        {
-//            Point   p1(10),
-//                    p2(10),
-//                    p3(10);
-//            Cluster c1;
-//            c1.add(p1); c1.add(p2); c1.add(p3);
-//            Cluster c2(c1), c3(c2), c4(c3);
-//
-//            pass = (c1 == c4);
-//
-//            ec.result(pass);
-//        }
-//    }
-//}
+void test_cluster_copying(ErrorContext &ec, unsigned int numRuns) {
+    bool pass;
+
+    // Run at least once!!
+    assert(numRuns > 0);
+
+    ec.DESC("--- Test - Cluster - Copy ---");
+
+    for (int run = 0; run < numRuns; run++) {
+
+        ec.DESC("simple copy");
+
+        {
+            Point   p1(10),
+                    p2(10),
+                    p3(10);
+            Cluster c1;
+            c1.add(p1); c1.add(p2); c1.add(p3);
+            Cluster c2(c1);
+
+            pass = (c1 == c2);
+
+            ec.result(pass);
+        }
+
+        ec.DESC("chained copy");
+
+        {
+            Point   p1(10),
+                    p2(10),
+                    p3(10);
+            Cluster c1;
+            c1.add(p1); c1.add(p2); c1.add(p3);
+            Cluster c2(c1), c3(c2), c4(c3);
+
+            pass = (c1 == c4);
+
+            ec.result(pass);
+        }
+    }
+}
 
 // operator=
-//void test_cluster_assignment(ErrorContext &ec, unsigned int numRuns) {
-//    bool pass;
-//
-//    // Run at least once!!
-//    assert(numRuns > 0);
-//
-//    ec.DESC("--- Test - Cluster - Assign ---");
-//
-//    for (int run = 0; run < numRuns; run++) {
-//
-//        ec.DESC("simple assignment");
-//
-//        {
-//            Point   p1(10),
-//                    p2(10),
-//                    p3(10);
-//
-//            Cluster c1;
-//            c1.add(p1); c1.add(p2); c1.add(p3);
-//            Cluster c2 = c1;
-//
-//            pass = (c1 == c2);
-//
-//            ec.result(pass);
-//        }
-//
-//
-//        ec.DESC("assignment causing deletion");
-//
-//        {
-//            Point   p1(10),
-//                    p2(10),
-//                    p3(10);
-//
-//            Cluster c1;
-//            c1.add(p1); c1.add(p2); c1.add(p3);
-//            Cluster c2;
-//            // add some other points
-//            c2.add(Point(10));
-//            c2.add(Point(10));
-//            c2.add(Point(10));
-//
-//            c2 = c1;
-//
-//            pass = (c1 == c2);
-//
-//            ec.result(pass);
-//        }
-//
-//        ec.DESC("chained assignment");
-//
-//        {
-//            Point   p1(10),
-//                    p2(10),
-//                    p3(10);
-//
-//            Cluster c1;
-//            c1.add(p1); c1.add(p2); c1.add(p3);
-//            Cluster c2 = c1;
-//            Cluster c3 = c2;
-//            Cluster c4 = c3;
-//
-//            pass = (c1 == c4);
-//
-//            ec.result(pass);
-//        }
-//    }
-//}
-//
+void test_cluster_assignment(ErrorContext &ec, unsigned int numRuns) {
+    bool pass;
+
+    // Run at least once!!
+    assert(numRuns > 0);
+
+    ec.DESC("--- Test - Cluster - Assign ---");
+
+    for (int run = 0; run < numRuns; run++) {
+
+        ec.DESC("simple assignment");
+
+        {
+            Point   p1(10),
+                    p2(10),
+                    p3(10);
+
+            Cluster c1;
+            c1.add(p1); c1.add(p2); c1.add(p3);
+            Cluster c2 = c1;
+
+            pass = (c1 == c2);
+
+            ec.result(pass);
+        }
+
+
+        ec.DESC("assignment causing deletion");
+
+        {
+            Point   p1(10),
+                    p2(10),
+                    p3(10);
+
+            Cluster c1;
+            c1.add(p1); c1.add(p2); c1.add(p3);
+            Cluster c2;
+            // add some other points
+            c2.add(Point(10));
+            c2.add(Point(10));
+            c2.add(Point(10));
+
+            c2 = c1;
+
+            pass = (c1 == c2);
+
+            ec.result(pass);
+        }
+
+        ec.DESC("chained assignment");
+
+        {
+            Point   p1(10),
+                    p2(10),
+                    p3(10);
+
+            Cluster c1;
+            c1.add(p1); c1.add(p2); c1.add(p3);
+            Cluster c2 = c1;
+            Cluster c3 = c2;
+            Cluster c4 = c3;
+
+            pass = (c1 == c4);
+
+            ec.result(pass);
+        }
+    }
+}
+
 //// subscript (operator[])
 //void test_cluster_subscript(ErrorContext &ec, unsigned int numRuns) {
 //    bool pass;
@@ -1247,7 +1247,7 @@ void test_cluster_smoketest(ErrorContext &ec) {
 //
 //            ec.result(pass);
 //        }
-//
+
 //        ec.DESC("plus equals (Cluster and Point) check with size getter");
 //
 //        {
@@ -1522,58 +1522,58 @@ void test_cluster_smoketest(ErrorContext &ec) {
 //}
 //
 //// operator>>, operator<<
-//void test_cluster_IO(ErrorContext &ec, unsigned int numRuns) {
-//    bool pass;
-//
-//    // Run at least once!!
-//    assert(numRuns > 0);
-//
-//    ec.DESC("--- Test - Cluster - Stream IO ---");
-//
-//    for (int run = 0; run < numRuns; run++) {
-//
-//        ec.DESC("read from a file");
-//
-//        {
-//            std::ifstream csv("points.csv");
-//            Cluster c;
-//            if (csv.is_open()) {
-//                csv >> c;
-//                csv.close();
-//            }
-//            pass = (c.getSize() == 4);
-//
-//            ec.result(pass);
-//        }
-//
-//        ec.DESC("read, write, and read again");
-//
-//        {
-//            std::ifstream csv("points.csv");
-//            Cluster c;
-//            if (csv.is_open()) {
-//                csv >> c;
-//                csv.close();
-//            }
-//            pass = (c.getSize() == 4);
-//
-//            // add a point
-//            c.add(Point(5));
-//
-//            std::ofstream csv1("points1.csv", std::ofstream::out);
-//
-//            csv1 << c;
-//            csv1.close();
-//
-//            std::ifstream csv2("points1.csv");
-//            Cluster c2;
-//            if (csv2.is_open()) {
-//                csv2 >> c2;
-//                csv2.close();
-//            }
-//            pass = pass && (c2.getSize() == 5);
-//
-//            ec.result(pass);
-//        }
-//    }
-//}
+void test_cluster_IO(ErrorContext &ec, unsigned int numRuns) {
+    bool pass;
+
+    // Run at least once!!
+    assert(numRuns > 0);
+
+    ec.DESC("--- Test - Cluster - Stream IO ---");
+
+    for (int run = 0; run < numRuns; run++) {
+
+        ec.DESC("read from a file");
+
+        {
+            std::ifstream csv("points.csv");
+            Cluster c;
+            if (csv.is_open()) {
+                csv >> c;
+                csv.close();
+            }
+            pass = (c.getSize() == 4);
+
+            ec.result(pass);
+        }
+
+        ec.DESC("read, write, and read again");
+
+        {
+            std::ifstream csv("points.csv");
+            Cluster c;
+            if (csv.is_open()) {
+                csv >> c;
+                csv.close();
+            }
+            pass = (c.getSize() == 4);
+
+            // add a point
+            c.add(Point(5));
+
+            std::ofstream csv1("points1.csv", std::ofstream::out);
+
+            csv1 << c;
+            csv1.close();
+
+            std::ifstream csv2("points1.csv");
+            Cluster c2;
+            if (csv2.is_open()) {
+                csv2 >> c2;
+                csv2.close();
+            }
+            pass = pass && (c2.getSize() == 5);
+
+            ec.result(pass);
+        }
+    }
+}

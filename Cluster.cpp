@@ -14,20 +14,29 @@ namespace Clustering {
 
     Cluster::Cluster(const Cluster &cluster) {
 
-        //__cpy(cluster.__points);
+        __size = 0;
 
-        for (int i = 0; i < cluster.__size; i++)
-            __cpy(cluster.__points);
+        if (cluster.__points == nullptr){
+            assert (cluster.__size == 0);
+            __size = 0;
+            __points = nullptr;
+
+        }
+
+        else
+        __cpy(cluster.__points);
 
     }
 
     Cluster &Cluster::operator=(const Cluster &cluster) {
 
-        if (this != &cluster) {
-            __del();
-            __cpy(cluster.__points);
-        }
-        return *this;
+        if (this == &cluster)
+            return *this;
+
+        __del();
+        __cpy(cluster.__points);
+
+       return *this;
     }
 
     Cluster::~Cluster() {
@@ -103,10 +112,14 @@ namespace Clustering {
     std::ostream &operator<<(std::ostream &out, const Cluster &cluster) {
 
 
+        LNodePtr curr = cluster.__points;
 
-        out << cluster.__points->point << "," << std::endl;
+        while (curr != nullptr) {
 
+            out << curr->point << std::endl;
 
+            curr = curr->next;
+        }
 
         return out;
     }
@@ -131,18 +144,35 @@ namespace Clustering {
     }
 
 
-bool operator==(const Cluster &lhs, const Cluster &rhs){
+    bool operator==(const Cluster &lhs, const Cluster &rhs){
 
-        if (lhs == rhs)
-            return true;
-        return false;
+        LNodePtr left = lhs.__points;
+        LNodePtr right = rhs.__points;
+
+        bool equal = true;
+
+        while (true){
+
+            if (left == nullptr && right == nullptr)
+                break;
+
+            else if (left == nullptr || right == nullptr || left->point != right->point){
+                equal = false;
+                break;
+            }
+
+            else{
+                left = left->next;
+                right = right->next;
+            }
+        }
+
+        return equal;
     }
-//
-//}
+
     bool operator!=(const Cluster &lhs, const Cluster &rhs){
 
-        if (lhs != rhs)
-            return true;
+            return ! (lhs == rhs);
     }
 //
 //    Cluster &Cluster::operator+=(const Cluster &rhs) {
@@ -155,7 +185,7 @@ bool operator==(const Cluster &lhs, const Cluster &rhs){
 //
 Cluster &Cluster::operator+=(const Point &rhs) {
 
-        add(rhs);
+        add(Point(rhs));
 
         return *this;
 }
@@ -188,27 +218,34 @@ Cluster &Cluster::operator-=(const Point &rhs) {
 
     void Cluster::__del() {
 
-        if (__size != 0) {
-            LNodePtr curr = __points, nxt = __points->next;
-            delete curr;
-        }
-        __points = nullptr;
-        __size = 0;
+       while (__points != nullptr) {
+
+           LNodePtr curr = __points;
+           __points = __points->next;
+
+           delete curr;
+           __size--;
+       }
 
     }
 
     void Cluster::__cpy(LNodePtr pts) {
+
+        if (pts == nullptr)
+            return;
 
         LNodePtr reached = pts;
         LNodePtr curr = new LNode(reached->point, nullptr);
         __points = curr;
         LNodePtr prev = curr;
         reached = reached->next;
+        __size++;
 
         for (; reached != nullptr; reached = reached->next) {
             curr = new LNode(reached->point, nullptr);
             prev->next = curr;
             prev = curr;
+            __size++;
         }
 
     }
@@ -226,5 +263,6 @@ Cluster &Cluster::operator-=(const Point &rhs) {
 //
 //        return curr->point;
 //    }
+
 }
 
