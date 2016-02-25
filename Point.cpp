@@ -26,7 +26,6 @@ namespace Clustering {
 
     Point::Point(int initDim, double *initValues) : Point(initDim) {
 
-        __values = 0;
 
         for (int i = 0; i < initDim; i++)
             __values[i] = initValues[i];

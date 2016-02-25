@@ -104,10 +104,9 @@ namespace Clustering {
                 prev = del;
                 del = del->next;
             }
-
-            return point;
         }
 
+        return point;
     }
 
     std::ostream &operator<<(std::ostream &out, const Cluster &cluster) {
