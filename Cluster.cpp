@@ -208,13 +208,13 @@ Cluster &Cluster::operator-=(const Point &rhs) {
 //    return Clustering::Cluster();
 //}
 //
-//const Cluster operator+(const Cluster &lhs, PointPtr const &rhs) {
+//const Cluster operator+(const Cluster &lhs, Point const &rhs) {
 //    return Cluster();
 //}
 //
-//const Cluster operator-(const Cluster &lhs, PointPtr const &rhs) {
+//const Cluster operator-(const Cluster &lhs, Point const &rhs) {
 //    return Cluster();
-//}*/
+//}
 
     void Cluster::__del() {
 
@@ -264,5 +264,12 @@ Cluster &Cluster::operator-=(const Point &rhs) {
         return curr->point;
     }
 
+    bool Cluster::contains(const Point &point) {
+
+        if (__points->point == point)
+           return true;
+
+        return false;
+    }
 }
 

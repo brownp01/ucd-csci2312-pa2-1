@@ -898,53 +898,53 @@ void test_cluster_addremove(ErrorContext &ec, unsigned int numRuns) {
     }
 }
 
-//// Containment
-//void test_cluster_contain(ErrorContext &ec, unsigned int numRuns) {
-//    bool pass;
-//
-//    // Run at least once!!
-//    assert(numRuns > 0);
-//
-//    ec.DESC("--- Test - Cluster - Containment ---");
-//
-//    for (int run = 0; run < numRuns; run++) {
-//
-//        ec.DESC("cluster with one point");
-//
-//        {
-//            Point p(10);
-//            p[0] = p[2] = p[4] = p[8] = 6.705;
-//            Cluster c;
-//            c.add(p);
-//
-//            pass = c.contains(p);
-//
-//            ec.result(pass);
-//        }
-//
-//        ec.DESC("cluster with several points");
-//
-//        {
-//            Point p(10);
-//            p[0] = p[2] = p[4] = p[8] = 6.705;
-//            Cluster c;
-//
-//            for (int i = 0; i < 10; i ++) {
-//                Point pp(10);
-//                for (int j = 0; j < 10; j ++) {
-//                    pp[i] = 3.4 + i * 2.1 + i * i;
-//                }
-//                c.add(pp);
-//            }
-//            c.add(p);
-//
-//            pass = c.contains(p);
-//
-//            ec.result(pass);
-//        }
-//    }
-//}
-//
+// Containment
+void test_cluster_contain(ErrorContext &ec, unsigned int numRuns) {
+    bool pass;
+
+    // Run at least once!!
+    assert(numRuns > 0);
+
+    ec.DESC("--- Test - Cluster - Containment ---");
+
+    for (int run = 0; run < numRuns; run++) {
+
+        ec.DESC("cluster with one point");
+
+        {
+            Point p(10);
+            p[0] = p[2] = p[4] = p[8] = 6.705;
+            Cluster c;
+            c.add(p);
+
+            pass = c.contains(p);
+
+            ec.result(pass);
+        }
+
+        ec.DESC("cluster with several points");
+
+        {
+            Point p(10);
+            p[0] = p[2] = p[4] = p[8] = 6.705;
+            Cluster c;
+
+            for (int i = 0; i < 10; i ++) {
+                Point pp(10);
+                for (int j = 0; j < 10; j ++) {
+                    pp[i] = 3.4 + i * 2.1 + i * i;
+                }
+                c.add(pp);
+            }
+            c.add(p);
+
+            pass = c.contains(p);
+
+            ec.result(pass);
+        }
+    }
+}
+
 // Copy constructor
 void test_cluster_copying(ErrorContext &ec, unsigned int numRuns) {
     bool pass;
@@ -1145,81 +1145,81 @@ void test_cluster_equality(ErrorContext &ec, unsigned int numRuns) {
 }
 
 // ascending pseudo-lexicographic order
-void test_cluster_order(ErrorContext &ec, unsigned int numRuns) {
-    bool pass;
-
-    // Run at least once!!
-    assert(numRuns > 0);
-
-    ec.DESC("--- Test - Cluster - Order ---");
-
-    for (int run = 0; run < numRuns; run++) {
-
-        ec.DESC("points in a cluster are sorted");
-
-        {
-            Point p1(5), p2(5), p3(5), p4(5), p5(5);
-            p1[0] = 1;
-            p2[1] = 1;
-            p3[2] = 1;
-            p4[3] = 1;
-            p5[4] = 1;
-
-            Cluster c;
-            c.add(p1);
-            c.add(p2);
-            c.add(p4);
-            c.add(p3);
-            c.add(p5);
-
-            pass = (c[0] == p5)
-                   && (c[1] == p4)
-                   && (c[2] == p3)
-                   && (c[3] == p2)
-                   && (c[4] == p1);
-
-            if (!pass) {
-                std::cout << std::endl;
-                std::cout << c << std::endl;
-                std::cout << std::endl;
-            }
-
-            ec.result(pass);
-        }
-
-        ec.DESC("ascending pseudo-lexicographic order");
-
-        {
-            Point p1(5), p2(5), p3(5), p4(5), p5(5);
-            p1[0] = 1;
-            p2[1] = 1;
-            p3[2] = -1;
-            p4[3] = 1;
-            p5[4] = -1;
-
-            Cluster c;
-            c.add(p1);
-            c.add(p2);
-            c.add(p4);
-            c.add(p3);
-            c.add(p5);
-
-            pass = (c[0] == p3)
-                   && (c[1] == p5)
-                   && (c[2] == p4)
-                   && (c[3] == p2)
-                   && (c[4] == p1);
-
-            if (!pass) {
-                std::cout << std::endl;
-                std::cout << c << std::endl;
-                std::cout << std::endl;
-            }
-
-            ec.result(pass);
-        }
-    }
-}
+//void test_cluster_order(ErrorContext &ec, unsigned int numRuns) {
+//    bool pass;
+//
+//    // Run at least once!!
+//    assert(numRuns > 0);
+//
+//    ec.DESC("--- Test - Cluster - Order ---");
+//
+//    for (int run = 0; run < numRuns; run++) {
+//
+//        ec.DESC("points in a cluster are sorted");
+//
+//        {
+//            Point p1(5), p2(5), p3(5), p4(5), p5(5);
+//            p1[0] = 1;
+//            p2[1] = 1;
+//            p3[2] = 1;
+//            p4[3] = 1;
+//            p5[4] = 1;
+//
+//            Cluster c;
+//            c.add(p1);
+//            c.add(p2);
+//            c.add(p4);
+//            c.add(p3);
+//            c.add(p5);
+//
+//            pass = (c[0] == p5)
+//                   && (c[1] == p4)
+//                   && (c[2] == p3)
+//                   && (c[3] == p2)
+//                   && (c[4] == p1);
+//
+//            if (!pass) {
+//                std::cout << std::endl;
+//                std::cout << c << std::endl;
+//                std::cout << std::endl;
+//            }
+//
+//            ec.result(pass);
+//        }
+//
+//        ec.DESC("ascending pseudo-lexicographic order");
+//
+//        {
+//            Point p1(5), p2(5), p3(5), p4(5), p5(5);
+//            p1[0] = 1;
+//            p2[1] = 1;
+//            p3[2] = -1;
+//            p4[3] = 1;
+//            p5[4] = -1;
+//
+//            Cluster c;
+//            c.add(p1);
+//            c.add(p2);
+//            c.add(p4);
+//            c.add(p3);
+//            c.add(p5);
+//
+//            pass = (c[0] == p3)
+//                   && (c[1] == p5)
+//                   && (c[2] == p4)
+//                   && (c[3] == p2)
+//                   && (c[4] == p1);
+//
+//            if (!pass) {
+//                std::cout << std::endl;
+//                std::cout << c << std::endl;
+//                std::cout << std::endl;
+//            }
+//
+//            ec.result(pass);
+//        }
+//    }
+//}
 //
 // operator+=, operator-=, different rhs
 void test_cluster_CAO(ErrorContext &ec, unsigned int numRuns) {
