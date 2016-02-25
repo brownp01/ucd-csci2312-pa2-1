@@ -47,7 +47,7 @@ int main() {
 //    test_cluster_subscript(ec, NumIters);
 //    test_cluster_equality(ec, NumIters);
 //    test_cluster_order(ec, NumIters);
-    test_cluster_addremove(ec, NumIters);
+//    test_cluster_addremove(ec, NumIters);
 //    test_cluster_contain(ec, NumIters);
 //    test_cluster_copying(ec, NumIters);
 //    test_cluster_assignment(ec, NumIters);

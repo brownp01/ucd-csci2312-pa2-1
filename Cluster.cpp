@@ -14,7 +14,10 @@ namespace Clustering {
 
     Cluster::Cluster(const Cluster &cluster) {
 
-        __cpy(cluster.__points);
+        //__cpy(cluster.__points);
+
+        for (int i = 0; i < cluster.__size; i++)
+            __cpy(cluster.__points);
 
     }
 
@@ -97,16 +100,16 @@ namespace Clustering {
 
     }
 
-//    std::ostream &operator<<(std::ostream &out, const Cluster &cluster) {
-//
-//        int i = 0;
-//        for ( ; i < cluster.__points; i++)
-//            out << cluster.__values[i] << ", ";
-//        out << cluster.__values[i];
-//
-//        return out;
-//
-//    }
+    std::ostream &operator<<(std::ostream &out, const Cluster &cluster) {
+
+
+
+        out << cluster.__points->point << "," << std::endl;
+
+
+
+        return out;
+    }
 
     std::istream &operator>>(std::istream &istream, Cluster &cluster) {
 
@@ -150,13 +153,19 @@ bool operator==(const Cluster &lhs, const Cluster &rhs){
 //    return <#initializer#>;
 //}
 //
-//Cluster &Cluster::operator+=(const Point &rhs) {
-//    return <#initializer#>;
-//}
+Cluster &Cluster::operator+=(const Point &rhs) {
+
+        add(rhs);
+
+        return *this;
+}
 //
-//Cluster &Cluster::operator-=(const Point &rhs) {
-//    return <#initializer#>;
-//}
+Cluster &Cluster::operator-=(const Point &rhs) {
+
+        remove(rhs);
+
+        return *this;
+}
 //
 //const Cluster operator+(const Cluster &lhs, const Cluster &rhs) {
 //
@@ -180,9 +189,8 @@ bool operator==(const Cluster &lhs, const Cluster &rhs){
     void Cluster::__del() {
 
         if (__size != 0) {
-            LNodePtr c = __points, n = __points->next;
-            //delete c->point;
-            delete c;
+            LNodePtr curr = __points, nxt = __points->next;
+            delete curr;
         }
         __points = nullptr;
         __size = 0;
@@ -210,7 +218,13 @@ bool operator==(const Cluster &lhs, const Cluster &rhs){
     }
 
 //    const Point &Cluster::operator[](unsigned int index) const {
-//        return __points[index];
+//
+//        LNodePtr curr = __points;
+//
+//        for (int i = 0; i < index; i++)
+//            curr = curr->next;
+//
+//        return curr->point;
 //    }
 }
 

@@ -816,87 +816,87 @@ void test_cluster_smoketest(ErrorContext &ec) {
 }
 
 // add, remove
-void test_cluster_addremove(ErrorContext &ec, unsigned int numRuns) {
-    bool pass;
-
-    // Run at least once!!
-    assert(numRuns > 0);
-
-    ec.DESC("--- Test - Cluster - Add/remove points ---");
-
-    for (int run = 0; run < numRuns; run++) {
-
-        ec.DESC("add and check with size getter");
-
-        {
-            Cluster c1;
-            c1.add(Point(50));
-            c1.add(Point(50));
-            c1.add(Point(50));
-
-            pass = (c1.getSize() == 3);
-
-            ec.result(pass);
-        } // by default, points will get released here
-
-
-        ec.DESC("add, remove, and check with size getter");
-
-        {
-            Point   p1(10),
-                    p2(10),
-                    p3(10);
-            Cluster c1;
-            c1.add(p1); c1.add(p2); c1.add(p3);
-            c1.remove(p1); c1.remove(p2); c1.remove(p3);
-
-            pass = (c1.getSize() == 0);
-            if (!pass) {
-                std::cout << std::endl;
-                std::cout << c1 << std::endl;
-                std::cout << std::endl;
-            }
-
-            ec.result(pass);
-        } // by default, points will get released here
-
-        ec.DESC("add, check with cluster equality, remove");
-
-        {
-            Point   p1(10),
-                    p2(10),
-                    p3(10);
-
-            Cluster c1, c2;
-            c1.add(p1); c1.add(p2); c1.add(p3);
-            c2.add(p1); c2.add(p2); c2.add(p3);
-
-            pass = (c1 == c2);
-            // don't forget to remove the points from one
-            // of the clusters to avoid the "double delete"
-            c2.remove(p1); c2.remove(p2); c2.remove(p3);
-
-            ec.result(pass);
-        }
-
-        ec.DESC("check point after add and remove");
-
-        {
-            Point   p1(10);
-
-            for (int i = 0; i < 10; i++)
-                p1[i] = 5.4 * i * i + 3.4 * i + 1.6;
-
-            Cluster c1;
-            c1.add(p1);
-            Point p2 = c1.remove(p1);
-
-            pass = (p1 == p2);
-
-            ec.result(pass);
-        }
-    }
-}
+//void test_cluster_addremove(ErrorContext &ec, unsigned int numRuns) {
+//    bool pass;
+//
+//    // Run at least once!!
+//    assert(numRuns > 0);
+//
+//    ec.DESC("--- Test - Cluster - Add/remove points ---");
+//
+//    for (int run = 0; run < numRuns; run++) {
+//
+//        ec.DESC("add and check with size getter");
+//
+//        {
+//            Cluster c1;
+//            c1.add(Point(50));
+//            c1.add(Point(50));
+//            c1.add(Point(50));
+//
+//            pass = (c1.getSize() == 3);
+//
+//            ec.result(pass);
+//        } // by default, points will get released here
+//
+//
+//        ec.DESC("add, remove, and check with size getter");
+//
+//        {
+//            Point   p1(10),
+//                    p2(10),
+//                    p3(10);
+//            Cluster c1;
+//            c1.add(p1); c1.add(p2); c1.add(p3);
+//            c1.remove(p1); c1.remove(p2); c1.remove(p3);
+//
+//            pass = (c1.getSize() == 0);
+//            if (!pass) {
+//                std::cout << std::endl;
+//                std::cout << c1 << std::endl;
+//                std::cout << std::endl;
+//            }
+//
+//            ec.result(pass);
+//        } // by default, points will get released here
+//
+//        ec.DESC("add, check with cluster equality, remove");
+//
+//        {
+//            Point   p1(10),
+//                    p2(10),
+//                    p3(10);
+//
+//            Cluster c1, c2;
+//            c1.add(p1); c1.add(p2); c1.add(p3);
+//            c2.add(p1); c2.add(p2); c2.add(p3);
+//
+//            pass = (c1 == c2);
+//            // don't forget to remove the points from one
+//            // of the clusters to avoid the "double delete"
+//            c2.remove(p1); c2.remove(p2); c2.remove(p3);
+//
+//            ec.result(pass);
+//        }
+//
+//        ec.DESC("check point after add and remove");
+//
+//        {
+//            Point   p1(10);
+//
+//            for (int i = 0; i < 10; i++)
+//                p1[i] = 5.4 * i * i + 3.4 * i + 1.6;
+//
+//            Cluster c1;
+//            c1.add(p1);
+//            Point p2 = c1.remove(p1);
+//
+//            pass = (p1 == p2);
+//
+//            ec.result(pass);
+//        }
+//    }
+//}
 
 //// Containment
 //void test_cluster_contain(ErrorContext &ec, unsigned int numRuns) {
@@ -945,7 +945,7 @@ void test_cluster_addremove(ErrorContext &ec, unsigned int numRuns) {
 //    }
 //}
 //
-//// Copy constructor
+// Copy constructor
 //void test_cluster_copying(ErrorContext &ec, unsigned int numRuns) {
 //    bool pass;
 //
@@ -987,8 +987,8 @@ void test_cluster_addremove(ErrorContext &ec, unsigned int numRuns) {
 //        }
 //    }
 //}
-//
-//// operator=
+
+// operator=
 //void test_cluster_assignment(ErrorContext &ec, unsigned int numRuns) {
 //    bool pass;
 //
@@ -1221,7 +1221,7 @@ void test_cluster_addremove(ErrorContext &ec, unsigned int numRuns) {
 //    }
 //}
 //
-//// operator+=, operator-=, different rhs
+// operator+=, operator-=, different rhs
 //void test_cluster_CAO(ErrorContext &ec, unsigned int numRuns) {
 //    bool pass;
 //
@@ -1263,7 +1263,7 @@ void test_cluster_addremove(ErrorContext &ec, unsigned int numRuns) {
 //
 //            ec.result(pass);
 //        }
-//
+
 //        ec.DESC("minus equals (Cluster and Point) check with non-equality");
 //
 //        {
