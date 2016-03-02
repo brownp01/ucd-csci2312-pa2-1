@@ -3,7 +3,6 @@
 //
 
 #include "Cluster.h"
-#include "Point.h"
 #include <cassert>
 #include <sstream>
 
@@ -174,15 +173,37 @@ namespace Clustering {
 
             return ! (lhs == rhs);
     }
-//
-//    Cluster &Cluster::operator+=(const Cluster &rhs) {
-//        return <#initializer#>;
-//    }
-//
-//Cluster &Cluster::operator-=(const Cluster &rhs) {
-//    return <#initializer#>;
-//}
-//
+
+    Cluster &Cluster::operator+=(const Cluster &rhs) {
+
+
+        LNodePtr curr = __points;
+
+        while (curr != nullptr){
+
+            if (!(this->contains(rhs.__points->point)))
+                add(rhs.__points->point);
+
+
+            else
+                curr = curr->next;
+
+        }
+
+        return *this;
+    }
+
+Cluster &Cluster::operator-=(const Cluster &rhs) {
+
+        for (int i = 0; i < rhs.__size; i++){
+
+            if (contains(rhs[i]))
+                remove(rhs[i]);
+        }
+
+        return *this;
+}
+
 Cluster &Cluster::operator+=(const Point &rhs) {
 
         add(Point(rhs));
@@ -197,24 +218,33 @@ Cluster &Cluster::operator-=(const Point &rhs) {
         return *this;
 }
 //
-//const Cluster operator+(const Cluster &lhs, const Cluster &rhs) {
-//
-//    Cluster newCluster = Cluster();
-//
-//    return newCluster;
-//}
-//
-//const Cluster operator-(const Cluster &lhs, const Cluster &rhs) {
-//    return Clustering::Cluster();
-//}
-//
-//const Cluster operator+(const Cluster &lhs, Point const &rhs) {
-//    return Cluster();
-//}
-//
-//const Cluster operator-(const Cluster &lhs, Point const &rhs) {
-//    return Cluster();
-//}
+const Cluster operator+(const Cluster &lhs, const Cluster &rhs) {
+
+        Cluster c1(lhs);
+
+        return c1 += rhs;
+}
+
+const Cluster operator-(const Cluster &lhs, const Cluster &rhs) {
+
+        Cluster c1(lhs);
+
+        return c1 -= rhs;
+}
+
+const Cluster operator+(const Cluster &lhs, Point const &rhs) {
+
+        Cluster c1(lhs);
+
+        return c1 += rhs;
+}
+
+const Cluster operator-(const Cluster &lhs, Point const &rhs) {
+
+        Cluster c1(lhs);
+
+        return c1 -= rhs;
+}
 
     void Cluster::__del() {
 
@@ -266,8 +296,16 @@ Cluster &Cluster::operator-=(const Point &rhs) {
 
     bool Cluster::contains(const Point &point) {
 
-        if (__points->point == point)
-           return true;
+        LNodePtr curr = __points;
+
+        while (curr != nullptr){
+
+            if (curr->point == point)
+                return true;
+
+            else
+                curr = curr->next;
+        }
 
         return false;
     }

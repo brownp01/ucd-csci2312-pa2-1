@@ -1144,83 +1144,83 @@ void test_cluster_equality(ErrorContext &ec, unsigned int numRuns) {
     }
 }
 
-// ascending pseudo-lexicographic order
-//void test_cluster_order(ErrorContext &ec, unsigned int numRuns) {
-//    bool pass;
-//
-//    // Run at least once!!
-//    assert(numRuns > 0);
-//
-//    ec.DESC("--- Test - Cluster - Order ---");
-//
-//    for (int run = 0; run < numRuns; run++) {
-//
-//        ec.DESC("points in a cluster are sorted");
-//
-//        {
-//            Point p1(5), p2(5), p3(5), p4(5), p5(5);
-//            p1[0] = 1;
-//            p2[1] = 1;
-//            p3[2] = 1;
-//            p4[3] = 1;
-//            p5[4] = 1;
-//
-//            Cluster c;
-//            c.add(p1);
-//            c.add(p2);
-//            c.add(p4);
-//            c.add(p3);
-//            c.add(p5);
-//
-//            pass = (c[0] == p5)
-//                   && (c[1] == p4)
-//                   && (c[2] == p3)
-//                   && (c[3] == p2)
-//                   && (c[4] == p1);
-//
-//            if (!pass) {
-//                std::cout << std::endl;
-//                std::cout << c << std::endl;
-//                std::cout << std::endl;
-//            }
-//
-//            ec.result(pass);
-//        }
-//
-//        ec.DESC("ascending pseudo-lexicographic order");
-//
-//        {
-//            Point p1(5), p2(5), p3(5), p4(5), p5(5);
-//            p1[0] = 1;
-//            p2[1] = 1;
-//            p3[2] = -1;
-//            p4[3] = 1;
-//            p5[4] = -1;
-//
-//            Cluster c;
-//            c.add(p1);
-//            c.add(p2);
-//            c.add(p4);
-//            c.add(p3);
-//            c.add(p5);
-//
-//            pass = (c[0] == p3)
-//                   && (c[1] == p5)
-//                   && (c[2] == p4)
-//                   && (c[3] == p2)
-//                   && (c[4] == p1);
-//
-//            if (!pass) {
-//                std::cout << std::endl;
-//                std::cout << c << std::endl;
-//                std::cout << std::endl;
-//            }
-//
-//            ec.result(pass);
-//        }
-//    }
-//}
-//
+ //ascending pseudo-lexicographic order
+void test_cluster_order(ErrorContext &ec, unsigned int numRuns) {
+    bool pass;
+
+    // Run at least once!!
+    assert(numRuns > 0);
+
+    ec.DESC("--- Test - Cluster - Order ---");
+
+    for (int run = 0; run < numRuns; run++) {
+
+        ec.DESC("points in a cluster are sorted");
+
+        {
+            Point p1(5), p2(5), p3(5), p4(5), p5(5);
+            p1[0] = 1;
+            p2[1] = 1;
+            p3[2] = 1;
+            p4[3] = 1;
+            p5[4] = 1;
+
+            Cluster c;
+            c.add(p1);
+            c.add(p2);
+            c.add(p4);
+            c.add(p3);
+            c.add(p5);
+
+            pass = (c[0] == p5)
+                   && (c[1] == p4)
+                   && (c[2] == p3)
+                   && (c[3] == p2)
+                   && (c[4] == p1);
+
+            if (!pass) {
+                std::cout << std::endl;
+                std::cout << c << std::endl;
+                std::cout << std::endl;
+            }
+
+            ec.result(pass);
+        }
+
+        ec.DESC("ascending pseudo-lexicographic order");
+
+        {
+            Point p1(5), p2(5), p3(5), p4(5), p5(5);
+            p1[0] = 1;
+            p2[1] = 1;
+            p3[2] = -1;
+            p4[3] = 1;
+            p5[4] = -1;
+
+            Cluster c;
+            c.add(p1);
+            c.add(p2);
+            c.add(p4);
+            c.add(p3);
+            c.add(p5);
+
+            pass = (c[0] == p3)
+                   && (c[1] == p5)
+                   && (c[2] == p4)
+                   && (c[3] == p2)
+                   && (c[4] == p1);
+
+            if (!pass) {
+                std::cout << std::endl;
+                std::cout << c << std::endl;
+                std::cout << std::endl;
+            }
+
+            ec.result(pass);
+        }
+    }
+}
+
 // operator+=, operator-=, different rhs
 void test_cluster_CAO(ErrorContext &ec, unsigned int numRuns) {
     bool pass;
@@ -1299,227 +1299,227 @@ void test_cluster_CAO(ErrorContext &ec, unsigned int numRuns) {
 
             ec.result(pass);
         }
-//
-//        ec.DESC("plus equals (Cluster union) no common points");
-//
-//        {
-//            Cluster c1, c2, c3;
-//            Point   p1(50),
-//                    p2(50),
-//                    p3(50),
-//                    p4(50),
-//                    p5(50);
-//            c1.add(p1); c1.add(p2); c1.add(p3);
-//            c2.add(p4); c2.add(p5);
-//
-//            // create a union to compare to
-//            c3.add(p1); c3.add(p2); c3.add(p3);
-//            c3.add(p4); c3.add(p5);
-//
-//            c1 += c2;
-//
-//            pass = (c1 == c3);
-//
-//            ec.result(pass);
-//        }
-//
-//        ec.DESC("plus equals (Cluster union) one common point");
-//
-//        {
-//            Cluster c1, c2, c3;
-//            Point   p1(50),
-//                    p2(50),
-//                    p3(50),
-//                    p4(50),
-//                    p5(50);
-//            c1.add(p1); c1.add(p2); c1.add(p3);
-//            c2.add(p3); c2.add(p4); c2.add(p5);
-//
-//            // create a union to compare to
-//            c3.add(p1); c3.add(p2); c3.add(p3);
-//            c3.add(p4); c3.add(p5);
-//
-//            c1 += c2;
-//
-//            pass = (c1 == c3);
-//
-//            ec.result(pass);
-//        }
-//
-//        ec.DESC("plus equals (Cluster union) two equal clusters");
-//
-//        {
-//            Cluster c1, c2;
-//            Point   p1(50),
-//                    p2(50),
-//                    p3(50),
-//                    p4(50),
-//                    p5(50);
-//            c1.add(p1); c1.add(p2); c1.add(p3); c1.add(p4); c1.add(p5);
-//            c2.add(p1); c2.add(p2); c2.add(p3); c2.add(p4); c2.add(p5);
-//
-//            c1 += c2;
-//
-//            pass = (c1 == c2);
-//
-//            ec.result(pass);
-//        }
-//
-//        ec.DESC("minus equals (asymmetric Cluster difference) no common points");
-//
-//        {
-//            Cluster c1, c2, c3;
-//            Point   p1(50),
-//                    p2(50),
-//                    p3(50),
-//                    p4(50),
-//                    p5(50);
-//            c1.add(p1); c1.add(p2); c1.add(p3);
-//            c2.add(p4); c2.add(p5);
-//
-//            c3 = c1;
-//            c1 -= c2;
-//
-//            pass = (c1 == c3);
-//
-//            ec.result(pass);
-//        }
-//
-//        ec.DESC("minus equals (asymmetric Cluster difference) one common point");
-//
-//        {
-//            Cluster c1, c2, c3;
-//            Point   p1(50),
-//                    p2(50),
-//                    p3(50),
-//                    p4(50),
-//                    p5(50);
-//            c1.add(p1); c1.add(p2); c1.add(p3);
-//            c2.add(p3); c2.add(p4); c2.add(p5);
-//
-//            // Prepare a difference to compare to
-//            c3.add(p1); c3.add(p2);
-//            c1 -= c2;
-//
-//            pass = (c1 == c3);
-//
-//            ec.result(pass);
-//        }
-//
-//        ec.DESC("minus equals (asymmetric Cluster difference) two equal clusters");
-//
-//        {
-//            Cluster c1, c2, c3;
-//            Point   p1(50),
-//                    p2(50),
-//                    p3(50),
-//                    p4(50),
-//                    p5(50);
-//            c1.add(p1); c1.add(p2); c1.add(p3); c1.add(p4); c1.add(p5);
-//            c2.add(p1); c2.add(p2); c2.add(p3); c2.add(p4); c2.add(p5);
-//
-//            c1 -= c2;
-//
-//            pass = (c1 == c3); // c1 should be empty
-//
-//            ec.result(pass);
-//        }
+
+        ec.DESC("plus equals (Cluster union) no common points");
+
+        {
+            Cluster c1, c2, c3;
+            Point   p1(50),
+                    p2(50),
+                    p3(50),
+                    p4(50),
+                    p5(50);
+            c1.add(p1); c1.add(p2); c1.add(p3);
+            c2.add(p4); c2.add(p5);
+
+            // create a union to compare to
+            c3.add(p1); c3.add(p2); c3.add(p3);
+            c3.add(p4); c3.add(p5);
+
+            c1 += c2;
+
+            pass = (c1 == c3);
+
+            ec.result(pass);
+        }
+
+        ec.DESC("plus equals (Cluster union) one common point");
+
+        {
+            Cluster c1, c2, c3;
+            Point   p1(50),
+                    p2(50),
+                    p3(50),
+                    p4(50),
+                    p5(50);
+            c1.add(p1); c1.add(p2); c1.add(p3);
+            c2.add(p3); c2.add(p4); c2.add(p5);
+
+            // create a union to compare to
+            c3.add(p1); c3.add(p2); c3.add(p3);
+            c3.add(p4); c3.add(p5);
+
+            c1 += c2;
+
+            pass = (c1 == c3);
+
+            ec.result(pass);
+        }
+
+        ec.DESC("plus equals (Cluster union) two equal clusters");
+
+        {
+            Cluster c1, c2;
+            Point   p1(50),
+                    p2(50),
+                    p3(50),
+                    p4(50),
+                    p5(50);
+            c1.add(p1); c1.add(p2); c1.add(p3); c1.add(p4); c1.add(p5);
+            c2.add(p1); c2.add(p2); c2.add(p3); c2.add(p4); c2.add(p5);
+
+            c1 += c2;
+
+            pass = (c1 == c2);
+
+            ec.result(pass);
+        }
+
+        ec.DESC("minus equals (asymmetric Cluster difference) no common points");
+
+        {
+            Cluster c1, c2, c3;
+            Point   p1(50),
+                    p2(50),
+                    p3(50),
+                    p4(50),
+                    p5(50);
+            c1.add(p1); c1.add(p2); c1.add(p3);
+            c2.add(p4); c2.add(p5);
+
+            c3 = c1;
+            c1 -= c2;
+
+            pass = (c1 == c3);
+
+            ec.result(pass);
+        }
+
+        ec.DESC("minus equals (asymmetric Cluster difference) one common point");
+
+        {
+            Cluster c1, c2, c3;
+            Point   p1(50),
+                    p2(50),
+                    p3(50),
+                    p4(50),
+                    p5(50);
+            c1.add(p1); c1.add(p2); c1.add(p3);
+            c2.add(p3); c2.add(p4); c2.add(p5);
+
+            // Prepare a difference to compare to
+            c3.add(p1); c3.add(p2);
+            c1 -= c2;
+
+            pass = (c1 == c3);
+
+            ec.result(pass);
+        }
+
+        ec.DESC("minus equals (asymmetric Cluster difference) two equal clusters");
+
+        {
+            Cluster c1, c2, c3;
+            Point   p1(50),
+                    p2(50),
+                    p3(50),
+                    p4(50),
+                    p5(50);
+            c1.add(p1); c1.add(p2); c1.add(p3); c1.add(p4); c1.add(p5);
+            c2.add(p1); c2.add(p2); c2.add(p3); c2.add(p4); c2.add(p5);
+
+            c1 -= c2;
+
+            pass = (c1 == c3); // c1 should be empty
+
+            ec.result(pass);
+        }
     }
 }
-//
-//// operator+, operator-, different rhs
-//void test_cluster_SAO(ErrorContext &ec, unsigned int numRuns) {
-//    bool pass;
-//
-//    // Run at least once!!
-//    assert(numRuns > 0);
-//
-//    ec.DESC("--- Test - Cluster - Simple arithmetic ---");
-//
-//    for (int run = 0; run < numRuns; run++) {
-//
-//        ec.DESC("plus (Cluster and Point)");
-//
-//        {
-//            Cluster c1, c2;
-//            Point   p1(50),
-//                    p2(50),
-//                    p3(50),
-//                    p4(50);
-//            c1.add(p1); c1.add(p2); c1.add(p3);
-//
-//            c2 = c1; c2.add(p4);
-//            Cluster c3 = c1 + p4;
-//
-//            pass = (c3 == c2);
-//
-//            ec.result(pass);
-//
-//        }
-//
-//        ec.DESC("minus (Cluster and Point)");
-//
-//        {
-//            Cluster c1, c2;
-//            Point   p1(50),
-//                    p2(50),
-//                    p3(50),
-//                    p4(50);
-//            c1.add(p1); c1.add(p2); c1.add(p3); c1.add(p4);
-//
-//            c2 = c1; c2.remove(p4);
-//            Cluster c3 = c1 - p4;
-//
-//            pass = (c3 == c2);
-//
-//            ec.result(pass);
-//        }
-//
-//        ec.DESC("plus (Cluster union)");
-//
-//        {
-//            Cluster c1, c2;
-//            Point   p1(50),
-//                    p2(50),
-//                    p3(50),
-//                    p4(50),
-//                    p5(50);
-//            c1.add(p1); c1.add(p2); c1.add(p3);
-//            c2.add(p4); c2.add(p5);
-//
-//            Cluster c3;
-//            c3.add(p1); c3.add(p2); c3.add(p3); c3.add(p4); c3.add(p5);
-//
-//            Cluster c4 = c1 + c2;
-//
-//            pass = (c4 == c3);
-//
-//            ec.result(pass);
-//        }
-//
-//        ec.DESC("minus (Cluster difference)");
-//
-//        {
-//            Cluster c1, c2;
-//            Point   p1(50),
-//                    p2(50),
-//                    p3(50),
-//                    p4(50),
-//                    p5(50);
-//            c1.add(p1); c1.add(p2); c1.add(p3);
-//            c2.add(p3); c2.add(p4); c2.add(p5);
-//
-//            Cluster c3;
-//            c3.add(p1); c3.add(p2);
-//
-//            Cluster c4 = c1 - c2;
-//
-//            pass = (c4 == c3);
-//
-//            ec.result(pass);
-//        }
-//    }
-//}
+
+// operator+, operator-, different rhs
+void test_cluster_SAO(ErrorContext &ec, unsigned int numRuns) {
+    bool pass;
+
+    // Run at least once!!
+    assert(numRuns > 0);
+
+    ec.DESC("--- Test - Cluster - Simple arithmetic ---");
+
+    for (int run = 0; run < numRuns; run++) {
+
+        ec.DESC("plus (Cluster and Point)");
+
+        {
+            Cluster c1, c2;
+            Point   p1(50),
+                    p2(50),
+                    p3(50),
+                    p4(50);
+            c1.add(p1); c1.add(p2); c1.add(p3);
+
+            c2 = c1; c2.add(p4);
+            Cluster c3 = c1 + p4;
+
+            pass = (c3 == c2);
+
+            ec.result(pass);
+
+        }
+
+        ec.DESC("minus (Cluster and Point)");
+
+        {
+            Cluster c1, c2;
+            Point   p1(50),
+                    p2(50),
+                    p3(50),
+                    p4(50);
+            c1.add(p1); c1.add(p2); c1.add(p3); c1.add(p4);
+
+            c2 = c1; c2.remove(p4);
+            Cluster c3 = c1 - p4;
+
+            pass = (c3 == c2);
+
+            ec.result(pass);
+        }
+
+        ec.DESC("plus (Cluster union)");
+
+        {
+            Cluster c1, c2;
+            Point   p1(50),
+                    p2(50),
+                    p3(50),
+                    p4(50),
+                    p5(50);
+            c1.add(p1); c1.add(p2); c1.add(p3);
+            c2.add(p4); c2.add(p5);
+
+            Cluster c3;
+            c3.add(p1); c3.add(p2); c3.add(p3); c3.add(p4); c3.add(p5);
+
+            Cluster c4 = c1 + c2;
+
+            pass = (c4 == c3);
+
+            ec.result(pass);
+        }
+
+        ec.DESC("minus (Cluster difference)");
+
+        {
+            Cluster c1, c2;
+            Point   p1(50),
+                    p2(50),
+                    p3(50),
+                    p4(50),
+                    p5(50);
+            c1.add(p1); c1.add(p2); c1.add(p3);
+            c2.add(p3); c2.add(p4); c2.add(p5);
+
+            Cluster c3;
+            c3.add(p1); c3.add(p2);
+
+            Cluster c4 = c1 - c2;
+
+            pass = (c4 == c3);
+
+            ec.result(pass);
+        }
+    }
+}
 //
 //// operator>>, operator<<
 void test_cluster_IO(ErrorContext &ec, unsigned int numRuns) {
