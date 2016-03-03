@@ -34,7 +34,7 @@ namespace Clustering {
 
     Point::Point(const Point &point) {
 
-        __id = ++__idGen;
+        __id = point.__id;
         __dim = point.__dim;
         __values = new double[__dim];
 
@@ -50,7 +50,7 @@ namespace Clustering {
 
         else {
             delete[] __values;
-            __id = ++__idGen;
+            __id = point.__id;
             __dim = point.__dim;
             __values = new double[__dim];
 
@@ -157,6 +157,9 @@ namespace Clustering {
     }
 
     bool operator==(const Point &point, const Point &point1) {
+
+        if (point.__id != point1.__id)
+            return false;
 
         for (int i = 0; i < point.__dim; i++) {
             if (point.__values[i] != point1.__values[i])

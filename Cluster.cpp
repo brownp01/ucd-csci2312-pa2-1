@@ -176,24 +176,16 @@ namespace Clustering {
 
     Cluster &Cluster::operator+=(const Cluster &rhs) {
 
+        for (int i = 0; i < rhs.__size; i++){
 
-        LNodePtr curr = __points;
-
-        while (curr != nullptr){
-
-            if (!(this->contains(rhs.__points->point)))
-                add(rhs.__points->point);
-
-
-            else
-                curr = curr->next;
-
+            if (!contains(rhs[i]))
+                add(rhs[i]);
         }
 
         return *this;
     }
 
-Cluster &Cluster::operator-=(const Cluster &rhs) {
+    Cluster &Cluster::operator-=(const Cluster &rhs) {
 
         for (int i = 0; i < rhs.__size; i++){
 
@@ -202,49 +194,49 @@ Cluster &Cluster::operator-=(const Cluster &rhs) {
         }
 
         return *this;
-}
+    }
 
-Cluster &Cluster::operator+=(const Point &rhs) {
+    Cluster &Cluster::operator+=(const Point &rhs) {
 
         add(Point(rhs));
 
         return *this;
-}
-//
-Cluster &Cluster::operator-=(const Point &rhs) {
+    }
+
+    Cluster &Cluster::operator-=(const Point &rhs) {
 
         remove(Point(rhs));
 
         return *this;
-}
-//
-const Cluster operator+(const Cluster &lhs, const Cluster &rhs) {
+    }
+
+    const Cluster operator+(const Cluster &lhs, const Cluster &rhs) {
 
         Cluster c1(lhs);
 
         return c1 += rhs;
-}
+    }
 
-const Cluster operator-(const Cluster &lhs, const Cluster &rhs) {
+    const Cluster operator-(const Cluster &lhs, const Cluster &rhs) {
 
         Cluster c1(lhs);
 
         return c1 -= rhs;
-}
+    }
 
-const Cluster operator+(const Cluster &lhs, Point const &rhs) {
+    const Cluster operator+(const Cluster &lhs, Point const &rhs) {
 
         Cluster c1(lhs);
 
         return c1 += rhs;
-}
+    }
 
-const Cluster operator-(const Cluster &lhs, Point const &rhs) {
+    const Cluster operator-(const Cluster &lhs, Point const &rhs) {
 
         Cluster c1(lhs);
 
         return c1 -= rhs;
-}
+    }
 
     void Cluster::__del() {
 
@@ -298,13 +290,15 @@ const Cluster operator-(const Cluster &lhs, Point const &rhs) {
 
         LNodePtr curr = __points;
 
+
         while (curr != nullptr){
 
             if (curr->point == point)
-                return true;
+               return true;
 
             else
                 curr = curr->next;
+
         }
 
         return false;
